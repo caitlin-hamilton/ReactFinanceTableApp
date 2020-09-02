@@ -1,7 +1,6 @@
 import React from 'react';
 import Table from './Table.js'
 import InputRow from './InputRow'
-import Button from './Peter'
 
 function App() {
   return (
