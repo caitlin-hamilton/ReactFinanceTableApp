@@ -12,21 +12,14 @@ class Table extends React.Component {
         console.log(this.state.inputData)
       }
 
-    sortByPrice = () => {
-        const data = [].concat(this.state.inputData).sort((a, b) => a.price > b.price ? 1 : -1);
+    sortDesc = (attribute) => {
+        let data = [].concat(this.state.inputData).sort((a, b) => a[attribute] > b[attribute] ? 1 : -1)
         this.setState({
             inputData: data
         })
-      }
-
-      sortByTicker =() => {
-          let data = [].concat(this.state.inputData).sort((a, b) => a.ticker > b.ticker ? 1 : -1)
-          this.setState({
-            inputData: data
-        })
 
       }
-      sortByAssetClass =() => {
+      sortByAssetClass = () => {
         let data = [].concat(this.state.inputData).sort((a, b) => ASSET_CLASS_SORT_ORDER[a.assetClass] - ASSET_CLASS_SORT_ORDER[b.assetClass])
         this.setState({
           inputData: data
@@ -34,7 +27,7 @@ class Table extends React.Component {
 
     }
 
-    render(){
+    render() {
         return(
           <div>
             <div >
@@ -50,13 +43,12 @@ class Table extends React.Component {
                    </tbody>
                  </table>
                  <button onClick={() => {this.sortByAssetClass()}}>Sort Asset Class</button>
-                 <button onClick={() => {this.sortByPrice()}}>Sort Price</button>
-                 <button onClick={() => {this.sortByTicker()}}>Sort Ticker</button>
+                 <button onClick={() => {this.sortDesc('price')}}>Sort Price</button>
+                 <button onClick={() => {this.sortDesc('ticker')}}>Sort Ticker</button>
               </div>
             </div>
           </div>
         )
       }
     }
-
 export default Table;
