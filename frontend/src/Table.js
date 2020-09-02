@@ -1,7 +1,7 @@
 import React from 'react';
 import InputRow from './InputRow'
 
-const ASSET_CLASS_SORT_ORDER = ['Entity', 'Macro', 'Class']
+const ASSET_CLASS_SORT_ORDER = {'Entity': 0, 'Macro': 1 ,'Credit': 2}
 
 class Table extends React.Component {
     //todo found a bug- if you click button on already sorted list, but two values are equal, it will switch around on UI.
@@ -27,8 +27,7 @@ class Table extends React.Component {
 
       }
       sortByAssetClass =() => {
-          //todo sort by E -> M -> C
-        let data = [].concat(this.state.inputData).sort((a, b) => a.assetClass < b.assetClass ? 1 : -1)
+        let data = [].concat(this.state.inputData).sort((a, b) => ASSET_CLASS_SORT_ORDER[a.assetClass] - ASSET_CLASS_SORT_ORDER[b.assetClass])
         this.setState({
           inputData: data
       })
