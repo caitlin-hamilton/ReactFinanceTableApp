@@ -1,10 +1,11 @@
 import React from 'react';
 import InputRow from './InputRow'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { ArrowUp, ArrowDown  } from 'react-bootstrap-icons';
 
 const ASSET_CLASS_SORT_ORDER = {'Entity': 0, 'Macro': 1 ,'Credit': 2}
 
 class Table extends React.Component {
-    //todo found a bug- if you click button on already sorted list, but two values are equal, it will switch around on UI.
 
     constructor(props){
         super(props);
@@ -12,8 +13,16 @@ class Table extends React.Component {
         console.log(this.state.inputData)
       }
 
-    sortDesc = (attribute) => {
-        let data = [].concat(this.state.inputData).sort((a, b) => a[attribute] > b[attribute] ? 1 : -1)
+      sortDescendingOrder = (attribute) => {
+        let data = [].concat(this.state.inputData).sort((a, b) => a[attribute] >= b[attribute] ? 1 : -1)
+        this.setState({
+            inputData: data
+        })
+
+      }
+
+      sortAscendingOrder = (attribute) => {
+        let data = [].concat(this.state.inputData).sort((a, b) => a[attribute] < b[attribute] ? 1 : -1)
         this.setState({
             inputData: data
         })
@@ -32,19 +41,16 @@ class Table extends React.Component {
           <div>
             <div >
               <div >
-                <table >
+                <table class="table">
                     <tr>
-                        <th>Asset Class</th>
-                        <th>Price</th>
-                        <th>Ticker</th>
+                        <th onClick={() => {this.sortByAssetClass()}} >Asset Class <ArrowDown /></th>
+                        <th onClick={() => {this.sortAscendingOrder('price')}}>Price <ArrowUp /></th>
+                        <th onClick={() => {this.sortDescendingOrder('ticker')}}>Ticker <ArrowDown /></th>
                     </tr>
                    <tbody>
                    {this.state.inputData.map(item => <InputRow assetClass={item.assetClass} price={item.price} ticker={item.ticker}/>)}
                    </tbody>
                  </table>
-                 <button onClick={() => {this.sortByAssetClass()}}>Sort Asset Class</button>
-                 <button onClick={() => {this.sortDesc('price')}}>Sort Price</button>
-                 <button onClick={() => {this.sortDesc('ticker')}}>Sort Ticker</button>
               </div>
             </div>
           </div>
