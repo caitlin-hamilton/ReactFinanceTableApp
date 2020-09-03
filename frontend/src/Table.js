@@ -43,7 +43,7 @@ class Table extends React.Component {
               <div >
                 <table class="table">
                     <tr>
-                        <th onClick={() => {this.sortByAssetClass()}} >Asset Class <ArrowDown /></th>
+                        <th onClick={() => {this.sortByAssetClass()}}> Asset Class <ArrowDown /></th>
                         <th onClick={() => {this.sortAscendingOrder('price')}}>Price <ArrowUp /></th>
                         <th onClick={() => {this.sortDescendingOrder('ticker')}}>Ticker <ArrowDown /></th>
                     </tr>
