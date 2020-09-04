@@ -53,7 +53,7 @@ class Table extends React.Component {
                         <th onClick={() => {this.sortDescendingOrder('ticker')}}>Ticker <ArrowDown /></th>
                     </tr>
                    <tbody>
-                   {this.state.inputData.map(item => <InputRow assetClass={item.assetClass} price={item.price} ticker={item.ticker}/>)}
+                   {this.state.inputData.map((item, index) => <InputRow assetClass={item.assetClass} price={item.price} ticker={item.ticker} key={index}/>)}
                    </tbody>
                  </table>
               </div>
