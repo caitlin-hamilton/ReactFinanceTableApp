@@ -1,10 +1,11 @@
 import React from 'react';
 import Table from './Table.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {getTableData} from './api';
 
 function App() {
   return (
-    <div>< Table inputRows={require('./input_data.json')}/></div>
+    <div>< Table getTableData={getTableData}/></div>
     );
 }
 

@@ -3,7 +3,7 @@ import InputRow from './InputRow'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {ArrowUp, ArrowDown } from 'react-bootstrap-icons';
 import {ASSET_CLASS_SORT_ORDER} from './config';
-import {getTableData} from './api';
+
 
 class Table extends React.Component {
 
@@ -14,7 +14,7 @@ class Table extends React.Component {
 
       componentDidMount(){
           this.setState({
-              inputData: getTableData()
+              inputData: this.props.getTableData()
           })
       }
 
@@ -53,7 +53,7 @@ class Table extends React.Component {
                         <th onClick={() => {this.sortDescendingOrder('ticker')}}>Ticker <ArrowDown /></th>
                     </tr>
                    <tbody>
-                   {this.state.inputData.map(item => <InputRow assetClass={item.assetClass} price={item.price} ticker={item.ticker}/>)}
+                   {this.state.inputData.map((item, index) => <InputRow assetClass={item.assetClass} price={item.price} ticker={item.ticker} key={index}/>)}
                    </tbody>
                  </table>
               </div>

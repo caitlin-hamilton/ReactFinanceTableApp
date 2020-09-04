@@ -5,8 +5,12 @@ import Table from "./Table";
 
 Enzyme.configure({ adapter: new Adapter() })
 
+function mockAPI(){
+    return [{price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}]
+}
+
 test('test sortAscendingOrder', () => {
-    const wrapper = shallow(<Table inputRows={[{price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}]}/>)
+    const wrapper = shallow(<Table getTableData={mockAPI}/>)
     expect(wrapper.instance().state.inputData).toStrictEqual([{price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}])
     wrapper.instance().sortAscendingOrder('price');
     expect(wrapper.instance().state.inputData).toStrictEqual([{price: 175, assetClass: 'Credit', ticker: 'BETA'}, {price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}])
@@ -14,7 +18,7 @@ test('test sortAscendingOrder', () => {
 })
 
 test('test sortDescendingOrder', () => {
-    const wrapper = shallow(<Table inputRows={[{price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}]}/>)
+    const wrapper = shallow(<Table getTableData={mockAPI}/>)
     expect(wrapper.instance().state.inputData).toStrictEqual([{price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}])
     wrapper.instance().sortDescendingOrder('ticker');
     expect(wrapper.instance().state.inputData).toStrictEqual([{price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}])
@@ -22,7 +26,7 @@ test('test sortDescendingOrder', () => {
 })
 
 test('test sortByAssetClass', () => {
-    const wrapper = shallow(<Table inputRows={[{price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}]}/>)
+    const wrapper = shallow(<Table getTableData={mockAPI}/>)
     expect(wrapper.instance().state.inputData).toStrictEqual([{price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}])
     wrapper.instance().sortByAssetClass();
     expect(wrapper.instance().state.inputData).toStrictEqual([{price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}, {price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}])
