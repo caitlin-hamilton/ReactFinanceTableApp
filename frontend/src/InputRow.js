@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const ASSET_CLASS_COLOURS = {Entity: "p-3 mb-2 bg-info text-white", Credit: "p-3 mb-2 bg-success text-white", Macro: "p-3 mb-2 bg-white text-dark"}
+const ASSET_CLASS_COLOURS = {Equities: "p-3 mb-2 bg-info text-white", Credit: "p-3 mb-2 bg-success text-white", Macro: "p-3 mb-2 bg-white text-dark"}
 
 export default class InputRow extends React.Component {
 
