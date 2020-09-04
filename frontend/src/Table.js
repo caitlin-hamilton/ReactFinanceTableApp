@@ -1,16 +1,15 @@
 import React from 'react';
 import InputRow from './InputRow'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { ArrowUp, ArrowDown  } from 'react-bootstrap-icons';
+import { ArrowUp, ArrowDown,   } from 'react-bootstrap-icons';
 
-const ASSET_CLASS_SORT_ORDER = {'Entity': 0, 'Macro': 1 ,'Credit': 2}
+const ASSET_CLASS_SORT_ORDER = {'Equities': 0, 'Macro': 1 ,'Credit': 2}
 
 class Table extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {inputData: props.inputRows}
-        console.log(this.state.inputData)
       }
 
       sortDescendingOrder = (attribute) => {
