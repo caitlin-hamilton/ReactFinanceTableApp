@@ -72,6 +72,7 @@ class Table extends React.Component {
         else {
           this.sortAttributeDescendingOrder(attribute)}
         }
+        
       else if (this.state.arrowLogic[attribute] === "DOWN"){
         if(attribute == 'assetClass'){
           this.sortAssetClassAscendingOrder(attribute)
