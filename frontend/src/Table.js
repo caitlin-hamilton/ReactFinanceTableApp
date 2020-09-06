@@ -1,7 +1,8 @@
 import React from 'react';
 import InputRow from './InputRow'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {ASSET_CLASS_SORT_ORDER, SORT_ARROW} from './config';
+import {ASSET_CLASS_SORT_ORDER} from './config';
+import HeaderSpecialColumn from './Header';
 
 class Table extends React.Component {
 
@@ -85,20 +86,16 @@ class Table extends React.Component {
     render() {
         return(
           <div>
-            <div >
-              <div >
-                <table class="table table-bordered">
-                    <tr>
-                      <th onClick={() => {this.sortAttribute('assetClass')}}> Asset Class {SORT_ARROW[this.state.arrowLogic['assetClass']]}</th>
-                      <th onClick={() => {this.sortAttribute('price')}}>Price {SORT_ARROW[this.state.arrowLogic['price']]}</th>
-                      <th onClick={() => {this.sortAttribute('ticker')}}>Ticker {SORT_ARROW[this.state.arrowLogic['ticker']]}</th>
-                    </tr>
-                   <tbody>
-                   {this.state.inputData.map((item, index) => <InputRow assetClass={item.assetClass} price={item.price} ticker={item.ticker} key={index}/>)}
-                   </tbody>
-                 </table>
-              </div>
-            </div>
+            <table className="table table-bordered">
+              <tr>
+              <HeaderSpecialColumn sortAttribute={() => {this.sortAttribute('assetClass')}} attribute={'Asset class'} sortIcon={this.state.arrowLogic['assetClass']}/>
+              <HeaderSpecialColumn sortAttribute={() => {this.sortAttribute('price')}} attribute={'Price'} sortIcon={this.state.arrowLogic['price']}/>
+              <HeaderSpecialColumn sortAttribute={() => {this.sortAttribute('ticker')}} attribute={'Ticker'} sortIcon={this.state.arrowLogic['ticker']}/>
+              </tr>
+              <tbody>
+              {this.state.inputData.map((item, index) => <InputRow assetClass={item.assetClass} price={item.price} ticker={item.ticker} key={index}/>)}
+              </tbody>
+            </table>
           </div>
         )
       }
