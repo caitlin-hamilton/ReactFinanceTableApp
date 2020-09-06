@@ -15,95 +15,83 @@ class Table extends React.Component {
             ticker: false,
           }
         };
-        this.sortByAssetClassAscendingOrder = this.sortByAssetClassAscendingOrder.bind(this);
-        this.sortByAssetClassDescendingOrder = this.sortByAssetClassDescendingOrder.bind(this);
       }
 
-      componentDidMount(){
-          this.setState({
-              inputData: this.props.getTableData()
-          })
-      }
-
-      getArrowLogic = (attribute, direction) => {
-        let localArrowLogic = {... this.state.arrowLogic}
-        Object.keys(localArrowLogic).forEach(v => localArrowLogic[v] = false)
-        localArrowLogic[attribute] = direction;
-        return localArrowLogic;
-      }
-
-      sortDescendingOrder = (attribute) => {
-        let data = [].concat(this.state.inputData).sort((a, b) => a[attribute] >= b[attribute] ? 1 : -1)
-        let direction = "DOWN"
-        this.setState({
-            inputData: data,
-            arrowLogic: this.getArrowLogic(attribute, direction),
-        })
-      }
-
-      sortAscendingOrder = (attribute) => {
-        let data = [].concat(this.state.inputData).sort((a, b) => a[attribute] < b[attribute] ? 1 : -1)
-        let direction = "UP"
-        this.setState({
-            inputData: data,
-            arrowLogic: this.getArrowLogic(attribute, direction),
-        })
-
-      }
-      sortByAssetClassDescendingOrder = (attribute) => {
-        let data = [].concat(this.state.inputData).sort((a, b) => ASSET_CLASS_SORT_ORDER[a.assetClass] - ASSET_CLASS_SORT_ORDER[b.assetClass])
-        let direction = "DOWN"
-        this.setState({
-          inputData: data,
-          arrowLogic: this.getArrowLogic(attribute, direction),
+    componentDidMount(){
+      this.setState({
+          inputData: this.props.getTableData()
       })
-      console.log('desc')
-      console.log(this.state.arrowLogic)
     }
 
-    sortByAssetClassAscendingOrder = (attribute) => {
-      let data = [].concat(this.state.inputData).sort((a, b) => - ASSET_CLASS_SORT_ORDER[b.assetClass] - ASSET_CLASS_SORT_ORDER[a.assetClass])
-      let direction = "UP"
+    getArrowLogic = (attribute, direction) => {
+      let localArrowLogic = {... this.state.arrowLogic}
+      Object.keys(localArrowLogic).forEach(v => localArrowLogic[v] = false)
+      localArrowLogic[attribute] = direction;
+      return localArrowLogic;
+    }
+
+    sortAttributeDescendingOrder = (attribute) => {
+      let data = [].concat(this.state.inputData).sort((a, b) => a[attribute] >= b[attribute] ? 1 : -1)
+      this.setState({
+          inputData: data,
+          arrowLogic: this.getArrowLogic(attribute, "DOWN"),
+      })
+    }
+
+    sortAttributeAscendingOrder = (attribute) => {
+      let data = [].concat(this.state.inputData).sort((a, b) => a[attribute] < b[attribute] ? 1 : -1)
+      this.setState({
+          inputData: data,
+          arrowLogic: this.getArrowLogic(attribute, "UP"),
+      })
+
+    }
+
+    sortAssetClassDescendingOrder = (attribute) => {
+      let data = [].concat(this.state.inputData).sort((a, b) => ASSET_CLASS_SORT_ORDER[a.assetClass] - ASSET_CLASS_SORT_ORDER[b.assetClass])
       this.setState({
         inputData: data,
-        arrowLogic: this.getArrowLogic(attribute, direction),
-    })
-    console.log('asend')
-    console.log(this.state.arrowLogic)
-  }
-
-    sortByAssetClass = (attribute) => {
-      if ((!this.state.arrowLogic.assetClass) || this.state.arrowLogic.assetClass === "UP"){
-        this.sortByAssetClassDescendingOrder(attribute)
-      }
-      else if (this.state.arrowLogic.assetClass === "DOWN"){
-        this.sortByAssetClassAscendingOrder(attribute)
-      }
-  }
-
-  sortAttribute = (attribute) => {
-    if ((!this.state.arrowLogic[attribute]) || this.state.arrowLogic[attribute] === "UP"){
-      this.sortDescendingOrder(attribute)
-    }
-    else if (this.state.arrowLogic[attribute] === "DOWN"){
-      this.sortAscendingOrder(attribute)
+        arrowLogic: this.getArrowLogic(attribute, "DOWN"),
+      })
     }
 
-  }
+    sortAssetClassAscendingOrder = (attribute) => {
+      let data = [].concat(this.state.inputData).sort((a, b) => ASSET_CLASS_SORT_ORDER[b.assetClass] - ASSET_CLASS_SORT_ORDER[a.assetClass])
+      this.setState({
+        inputData: data,
+        arrowLogic: this.getArrowLogic(attribute, "UP"),
+      })
+    }
 
+    sortAttribute = (attribute) => {
+      if ((!this.state.arrowLogic[attribute]) || this.state.arrowLogic[attribute] === "UP"){
+        if( attribute == 'assetClass'){
+          this.sortAssetClassDescendingOrder(attribute)
+        }
+        else {
+          this.sortAttributeDescendingOrder(attribute)}
+        }
+      else if (this.state.arrowLogic[attribute] === "DOWN"){
+        if(attribute == 'assetClass'){
+          this.sortAssetClassAscendingOrder(attribute)
+        }
+        else {
+          this.sortAttributeAscendingOrder(attribute)
+        }
+      }
+    }
 
 
     render() {
-      console.log(this.state.arrowLogic)
         return(
           <div>
             <div >
               <div >
-                <table class="table table-bordered" >
+                <table class="table table-bordered">
                     <tr>
-                        <th onClick={() => {this.sortByAssetClass('assetClass')}}> Asset Class {SORT_ARROW[this.state.arrowLogic['assetClass']]}</th>
-                        <th onClick={() => {this.sortAttribute('price')}}>Price {SORT_ARROW[this.state.arrowLogic['price']]}</th>
-                        <th onClick={() => {this.sortAttribute('ticker')}}>Ticker {SORT_ARROW[this.state.arrowLogic['ticker']]}</th>
+                      <th onClick={() => {this.sortAttribute('assetClass')}}> Asset Class {SORT_ARROW[this.state.arrowLogic['assetClass']]}</th>
+                      <th onClick={() => {this.sortAttribute('price')}}>Price {SORT_ARROW[this.state.arrowLogic['price']]}</th>
+                      <th onClick={() => {this.sortAttribute('ticker')}}>Ticker {SORT_ARROW[this.state.arrowLogic['ticker']]}</th>
                     </tr>
                    <tbody>
                    {this.state.inputData.map((item, index) => <InputRow assetClass={item.assetClass} price={item.price} ticker={item.ticker} key={index}/>)}
