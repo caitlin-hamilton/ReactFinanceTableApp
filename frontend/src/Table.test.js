@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Table from "./Table";
 
@@ -10,7 +10,7 @@ function mockAPI(){
 }
 
 test('test sortAttributeAscendingOrder', () => {
-    const wrapper = shallow(<Table getTableData={mockAPI}/>)
+    const wrapper = mount(<Table getTableData={mockAPI}/>)
     expect(wrapper.instance().state.inputData).toStrictEqual([{price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}])
     wrapper.instance().sortAttributeAscendingOrder('price');
     expect(wrapper.instance().state.inputData).toStrictEqual([{price: 175, assetClass: 'Credit', ticker: 'BETA'}, {price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}])
@@ -18,7 +18,7 @@ test('test sortAttributeAscendingOrder', () => {
 })
 
 test('test sortAttributeDescendingOrder', () => {
-    const wrapper = shallow(<Table getTableData={mockAPI}/>)
+    const wrapper = mount(<Table getTableData={mockAPI}/>)
     expect(wrapper.instance().state.inputData).toStrictEqual([{price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}])
     wrapper.instance().sortAttributeDescendingOrder('ticker');
     expect(wrapper.instance().state.inputData).toStrictEqual([{price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}])
@@ -26,7 +26,7 @@ test('test sortAttributeDescendingOrder', () => {
 })
 
 test('test sortAssetClassDescendingOrder', () => {
-    const wrapper = shallow(<Table getTableData={mockAPI}/>)
+    const wrapper = mount(<Table getTableData={mockAPI}/>)
     expect(wrapper.instance().state.inputData).toStrictEqual([{price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}])
     wrapper.instance().sortAssetClassDescendingOrder();
     expect(wrapper.instance().state.inputData).toStrictEqual([{price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}, {price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}])
@@ -34,7 +34,7 @@ test('test sortAssetClassDescendingOrder', () => {
 })
 
 test('test sortAssetClassAscendingOrder', () => {
-    const wrapper = shallow(<Table getTableData={mockAPI}/>)
+    const wrapper = mount(<Table getTableData={mockAPI}/>)
     expect(wrapper.instance().state.inputData).toStrictEqual([{price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: 175, assetClass: 'Credit', ticker: 'BETA'}])
     wrapper.instance().sortAssetClassAscendingOrder();
     expect(wrapper.instance().state.inputData).toStrictEqual([{price: 175, assetClass: 'Credit', ticker: 'BETA'}, {price : 100, assetClass: 'Macro', ticker: 'ALPHA'}, {price: 50, assetClass: 'Macro', ticker: 'BETA'}, {price: -50, assetClass: 'Equities', ticker: 'CHARLIE'}])
@@ -42,7 +42,7 @@ test('test sortAssetClassAscendingOrder', () => {
 })
 
 test('test getArrowLogic', () => {
-    const wrapper = shallow(<Table getTableData={mockAPI}/>)
+    const wrapper = mount(<Table getTableData={mockAPI}/>)
     expect(wrapper.instance().getArrowLogic('assetClass', 'DOWN')).toEqual({'assetClass': 'DOWN', 'price': false, 'ticker': false})
     expect(wrapper.instance().getArrowLogic('ticker', 'UP')).toEqual({'assetClass': false, 'price': false, 'ticker': 'UP'})
     wrapper.unmount()
