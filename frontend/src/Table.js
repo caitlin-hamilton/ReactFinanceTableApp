@@ -25,7 +25,7 @@ class Table extends React.Component {
     }
 
     getArrowLogic = (attribute, direction) => {
-      let localArrowLogic = {... this.state.arrowLogic}
+      let localArrowLogic = {...this.state.arrowLogic}
       Object.keys(localArrowLogic).forEach(v => localArrowLogic[v] = false)
       localArrowLogic[attribute] = direction;
       return localArrowLogic;
