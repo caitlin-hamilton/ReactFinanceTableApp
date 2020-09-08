@@ -1,0 +1,38 @@
+Front End Engineer Technical Assessment
+Specification
+Build a single page application that represents a table of financial instruments.
+The table should have the following capabilities:
+ Sorting
+o by “Asset Class”: Equities first, then Macro and Credit last.
+o by “Price” in descending order
+o by “Ticker” in alphabetical order
+ Presentation
+o Rows to be colour-coded by “Asset Class”:
+o Macro = White
+o Equities = Blue
+o Credit = Green
+o “Price” should be in blue if positive and red if negative
+You may assume an API exists which presents financial instrument data in the following JSON-encoded format:
+[
+{
+"ticker": "ALPHA",
+"price": 3150.67,
+"assetClass": "Credit"
+},
+{
+"ticker": "BETA",
+"price": 3791.37,
+"assetClass": "Equities"
+}
+]
+A longer set of sample data is included in a separate file with this document.
+For the purposes of this assessment, you can use a client-side function to present API data to your app.
+You should utilize react to do the exercise – the preference is to use typescript for the language, but ES5/6 are equally acceptable.
+Please write the table component yourself rather than using an off the shelf component.
+Assessment
+We will review the application together at interview, with focus on the following key topics:
+ Adherence to specification
+ Stability
+ Testing
+ Code quality
+Please submit your assessment as a GitHub repository with a readme file explaining how to run your application.
